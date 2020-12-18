@@ -1,9 +1,9 @@
 module.exports = {
-	name: 'ping',
-    description: 'Ping! Pong.',
+	name: 'boop',
+    description: 'Boop! Bop!',
     args: false,
     usage: ' ',
 	execute(message, args) {
-		message.channel.send('Pong.');
+		message.channel.send('Bop!');
 	},
 };
