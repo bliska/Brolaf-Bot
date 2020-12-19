@@ -1,4 +1,5 @@
 const { prefix } = require('../config.json');
+const Discord = require('discord.js');
 
 module.exports = {
     name: 'help',
@@ -14,12 +15,24 @@ module.exports = {
 
         // if no arguments, return list of commands
         if (!args.length) {
-            data.push('Here\'s a list of all my commands:');
-            data.push(commands.map(command => command.name).join(', '));
-            data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
 
-            return message.channel.send(data, { split: true});
+            const fields = [];
+            commands.map(command => {
+                fields.push( { 
+                    name: `${prefix}${command.name}`, 
+                    value: command.description 
+                });
+            });
 
+            const embed = new Discord.MessageEmbed()
+                .setColor('#FF0000')
+                .setTitle('Brolaf Bot Help')
+                .setURL('https://github.com/bliska/Brolaf-Bot.git')
+                .setDescription('I can respond to the following commands.')
+                .setThumbnail('https://cdn.discordapp.com/icons/748216879268495481/7d2d68c11f29968e5d445812faf51cba.png')
+                .addFields(fields)
+
+            return message.channel.send(embed);
         }
 
         // otherwise, info about the command
@@ -34,12 +47,14 @@ module.exports = {
         }
 
         //return information about the command
-        data.push(`Name: ${command.name}`);
-
-        if (command.description) data.push(`Description: ${command.description}`);
-        if (command.usage) data.push(`Usage: ${prefix}${command.name} ${command.usage}`);
-
-        message.channel.send(data, { split: true });
+        const embed = new Discord.MessageEmbed()
+                .setColor('#FF0000')
+                .setTitle('Brolaf Bot Help')
+                .setURL('https://github.com/bliska/Brolaf-Bot.git')
+                .setThumbnail('https://cdn.discordapp.com/icons/748216879268495481/7d2d68c11f29968e5d445812faf51cba.png')
+                .addField(command.name, `${command.description}\nUsage: ${prefix}${command.name} ${command.usage}`)
+        
+        message.channel.send(embed);
 
     },
 };
