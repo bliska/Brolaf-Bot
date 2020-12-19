@@ -16,6 +16,8 @@ module.exports = {
         // if no arguments, return list of commands
         if (!args.length) {
 
+            console.log(commands)
+
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
                 .setTitle('Brolaf Bot Help')
