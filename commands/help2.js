@@ -20,7 +20,7 @@ module.exports = {
                 .setColor('#0099ff')
                 .setTitle('Brolaf Bot Help')
                 .setDescription('I can respond to the following commands. Use \'!\' to start each command.')
-                .setURL('https://cdn.discordapp.com/icons/748216879268495481/7d2d68c11f29968e5d445812faf51cba.png')
+                .setThumbnail('https://cdn.discordapp.com/icons/748216879268495481/7d2d68c11f29968e5d445812faf51cba.png')
                 .addFields([{name: '1', value: 'one' }, {name: '2', value: 'two' }, {name: '3', value: 'three' }])
 
             return message.channel.send(embed);
