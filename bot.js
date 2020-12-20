@@ -27,7 +27,10 @@ client.on('ready', () => {
 // listen for messages and execute commands
 client.on('message', message => {
     // exit early if message doesn't start with ! or from bot
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    
+    // log messages (just to console for now)
+    console.log(`${message.author.tag}: ${message.content}`)
 
     // pull out command and make array of arguments
     const args = message.content.slice(prefix.length).trim().split(/ +/);

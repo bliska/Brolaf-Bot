@@ -17,7 +17,7 @@ module.exports = {
             
             // find the team we want
             let team = teams.filter(obj => {
-                return obj.id === 5;
+                return obj.id === id;
             })[0];
             
             // add rank
