@@ -6,7 +6,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'team',
     description: 'Get info on fantasy team.',
-    usage: '< tag user>',
+    usage: '<tag user>',
     execute(message, args) {
 
         var discordId;
@@ -26,8 +26,7 @@ module.exports = {
             teamId: teamId,
             owner: utils.ownerFromEspn(teamId)
         };
-        fantasy.getTeamInfo(data, function(response) {
-            const team = response.team;
+        fantasy.getTeamInfo(data, function(team) {
             const rank = utils.ordinal(team.rank);
             const pf = +team.regularSeasonPointsFor.toFixed(2);
             const pa = +team.regularSeasonPointsAgainst.toFixed(2)
@@ -39,7 +38,7 @@ module.exports = {
                 .setTitle(`${team.name}`)
                 .setURL(`https://fantasy.espn.com/football/team?leagueId=194518&seasonId=2020&teamId=${team.id}`)
                 .setThumbnail(team.logoURL)
-                .setDescription(response.owner)
+                .setDescription(team.owner)
                 .addField(`${team.wins}-${team.losses}-${team.ties} (${rank})`,
                     `PF: ${pf} (${pfRank})\nPA: ${pa} (${paRank})`)
         
