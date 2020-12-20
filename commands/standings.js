@@ -3,6 +3,27 @@ const utils = require('../utils/utils.js');
 const fantasy = require('../fantasy/fantasy-utils.js');
 const Discord = require('discord.js');
 
+function getTitle(type) {
+    if (type === 'pf') {
+        return 'Points For';
+    } else if (type === 'pa') {
+        return 'Points Against';
+    } else {
+        return 'Record';
+    }
+}
+
+function getValue(type, team) {
+    if (type === 'pf') {
+        return `${+team.regularSeasonPointsFor.toFixed(2)}\n`;
+    } else if (type === 'pa') {
+        return `${+team.regularSeasonPointsAgainst.toFixed(2)}\n`;
+    } else {
+        return `${team.wins}-${team.losses}-${team.ties}\n`;
+    }  
+}
+
+
 module.exports = {
     name: 'standings',
     description: 'Get league standings. Ordered by record by default. Add argument to order by points for (pf) or points against (pa).',
@@ -31,22 +52,10 @@ module.exports = {
             let teamList = '';
             let rankList = '';
             let list = '';
-            let title = '';
             teams.forEach(team => {
-                teamList += `${team.name}\n`
-                rankList += `${teams.indexOf(team) + 1}\n`
-                let val =''
-                if (type === 'pf') {
-                    val = `${+team.regularSeasonPointsFor.toFixed(2)}\n`;
-                    title = 'Points For';
-                } else if (type === 'pa') {
-                    val = `${+team.regularSeasonPointsAgainst.toFixed(2)}\n`;
-                    title = 'Points Against';
-                } else {
-                    val = `${team.wins}-${team.losses}-${team.ties}\n`;
-                    title = 'Record';
-                }
-                list += val
+                teamList += `${team.name}\n`;
+                rankList += `${teams.indexOf(team) + 1}\n`;
+                list += getValue(type, team);
             });
         
             const embed = new Discord.MessageEmbed()
@@ -57,7 +66,7 @@ module.exports = {
                 .addFields(
                     { name: 'Rank', value: rankList, inline: true },
                     { name: 'Team', value: teamList, inline: true },
-                    { name: title, value: list, inline: true },
+                    { name: getTitle(type), value: list, inline: true },
                     )
         
             message.channel.send(embed);
