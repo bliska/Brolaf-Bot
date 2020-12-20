@@ -6,7 +6,7 @@ const client = fantasy.getLeagueClient();
 // sort teams to get rank
 function getRank(teams, id) {
     teams.sort(utils.compare);
-    return teams.findIndex(obj => obj.id === id);
+    return teams.findIndex(obj => obj.id === id) + 1;
 }
 
 module.exports = {
