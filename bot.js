@@ -21,7 +21,7 @@ for (const file of commandFiles) {
 
 // handle event and call function
 client.on('ready', () => {
-    console.log('ready')
+    console.log('Bot is ready.')
 });
 
 // listen for messages and execute commands
