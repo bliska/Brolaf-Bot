@@ -15,7 +15,6 @@ module.exports = {
             discordId = message.author.id
         } else {
             // get user id from mention in argument
-            console.log('mention')
             discordId = utils.getUserFromMention(args[0]);
         }
 
