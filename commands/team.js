@@ -36,8 +36,7 @@ module.exports = {
                 .setThumbnail(team.logoURL)
                 .setDescription(response.owner)
                 .addField(`${team.wins}-${team.losses}-${team.ties} (${utils.ordinal(team.rank)})`,
-                    `PF: ${+team.regularSeasonPointsFor.toFixed(2)}
-                    PA: ${+team.regularSeasonPointsAgainst.toFixed(2)}`)
+                    `PF: ${+team.regularSeasonPointsFor.toFixed(2)}\nPA: ${+team.regularSeasonPointsAgainst.toFixed(2)}`)
         
             message.channel.send(embed);
         })
