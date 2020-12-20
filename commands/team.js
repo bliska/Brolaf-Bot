@@ -35,7 +35,7 @@ module.exports = {
                 .setURL(`https://fantasy.espn.com/football/team?leagueId=194518&seasonId=2020&teamId=${team.id}`)
                 .setThumbnail(team.logoURL)
                 .setDescription(response.owner)
-                .addField(`${team.wins}-${team.losses}-${team.ties}`,
+                .addField(`${team.wins}-${team.losses}-${team.ties} (${utils.ordinal(team.rank)})`,
                     `PF: ${+team.regularSeasonPointsFor.toFixed(2)}
                     PA: ${+team.regularSeasonPointsAgainst.toFixed(2)}`)
         
