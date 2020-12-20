@@ -39,11 +39,25 @@ module.exports = {
     },
 
     // compare function (used to rank teams)
-    compare: function(a,b) {
+    compareRank: function(a,b) {
         if(a.wins < b.wins) return 1;
         else if(a.wins > b.wins) return -1;
         else if(a.totalPointsScored < b.totalPointsScored) return 1;
         else if(a.totalPointsScored > b.totalPointsScored) return -1;
+        else return 0;
+    },
+
+    // compare function (used to order regular season points for)
+    comparePF: function(a,b) {
+        if(a.regularSeasonPointsFor < b.regularSeasonPointsFor) return 1;
+        else if(a.regularSeasonPointsFor > b.regularSeasonPointsFor) return -1;
+        else return 0;
+    },
+
+    // compare function (used to order regular season points against)
+    comparePA: function(a,b) {
+        if(a.regularSeasonPointsAgainst < b.regularSeasonPointsAgainst) return 1;
+        else if(a.regularSeasonPointsAgainst > b.regularSeasonPointsAgainst) return -1;
         else return 0;
     },
 

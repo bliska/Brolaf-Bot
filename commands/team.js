@@ -28,6 +28,11 @@ module.exports = {
         };
         fantasy.getTeamInfo(data, function(response) {
             const team = response.team;
+            const rank = utils.ordinal(team.rank);
+            const pf = +team.regularSeasonPointsFor.toFixed(2);
+            const pa = +team.regularSeasonPointsAgainst.toFixed(2)
+            const pfRank = utils.ordinal(team.pfRank);
+            const paRank = utils.ordinal(team.paRank);
         
             const embed = new Discord.MessageEmbed()
                 .setColor('#0099ff')
@@ -35,8 +40,8 @@ module.exports = {
                 .setURL(`https://fantasy.espn.com/football/team?leagueId=194518&seasonId=2020&teamId=${team.id}`)
                 .setThumbnail(team.logoURL)
                 .setDescription(response.owner)
-                .addField(`${team.wins}-${team.losses}-${team.ties} (${utils.ordinal(team.rank)})`,
-                    `PF: ${+team.regularSeasonPointsFor.toFixed(2)}\nPA: ${+team.regularSeasonPointsAgainst.toFixed(2)}`)
+                .addField(`${team.wins}-${team.losses}-${team.ties} (${rank})`,
+                    `PF: ${pf} (${pfRank})\nPA: ${pa} (${paRank})`)
         
             message.channel.send(embed);
         })
