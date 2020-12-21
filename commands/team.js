@@ -1,4 +1,3 @@
-const { prefix } = require('../config.json');
 const utils = require('../utils/utils.js');
 const fantasy = require('../fantasy/fantasy-utils.js');
 const Discord = require('discord.js');
@@ -26,7 +25,7 @@ module.exports = {
             teamId: teamId,
             owner: utils.ownerFromEspn(teamId)
         };
-        fantasy.getTeamInfo(data, function(team) {
+        fantasy.getTeamInfo(data, team => {
             const rank = utils.ordinal(team.rank);
             const pf = +team.regularSeasonPointsFor.toFixed(2);
             const pa = +team.regularSeasonPointsAgainst.toFixed(2)

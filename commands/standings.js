@@ -1,5 +1,3 @@
-const { prefix } = require('../config.json');
-const utils = require('../utils/utils.js');
 const fantasy = require('../fantasy/fantasy-utils.js');
 const Discord = require('discord.js');
 
@@ -42,20 +40,18 @@ module.exports = {
             }
         }
 
-        // get team info and create embed in callback
+        // get standings and create embed in callback
         const data = {
             type: order
         };
-        fantasy.getStandings(data, function(response) {
-            const teams = response.teams;
-            const type = response.type;
+        fantasy.getStandings(data, teams => {
             let teamList = '';
             let rankList = '';
             let list = '';
             teams.forEach(team => {
                 teamList += `${team.name}\n`;
                 rankList += `${teams.indexOf(team) + 1}\n`;
-                list += getValue(type, team);
+                list += getValue(data.type, team);
             });
         
             const embed = new Discord.MessageEmbed()
@@ -66,7 +62,7 @@ module.exports = {
                 .addFields(
                     { name: 'Rank', value: rankList, inline: true },
                     { name: 'Team', value: teamList, inline: true },
-                    { name: getTitle(type), value: list, inline: true },
+                    { name: getTitle(data.type), value: list, inline: true },
                     )
         
             message.channel.send(embed);

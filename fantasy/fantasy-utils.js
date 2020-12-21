@@ -23,17 +23,31 @@ function teamSort(type, teams) {
     return teams;
 }
 
+// get single box score based on team ID
+function singleBox(id, boxes) {
+    return boxes.filter(box => {
+        return (box.homeTeamId === id || box.awayTeamId == id);
+    });
+}
+
 module.exports = {
+    // function to get data on all teams
+    getTeamsInfo: function(data, callback) {
+        // get all teams (teams is array of each team)
+        client.getTeamsAtWeek({ seasonId: 2020, scoringPeriodId: 18})
+        .then(teams => {
+            callback(teams)
+        });
+    },
+
     // function to get information on one team
     getTeamInfo: function(data, callback) {
         const id = data.teamId;
         // get all teams (teams is array)
-        client.getTeamsAtWeek({ seasonId: 2020, scoringPeriodId: 1})
-        .then(teams => {
-            
+        this.getTeamsInfo({}, teams =>{ 
             // find the team we want
-            let team = teams.filter(obj => {
-                return obj.id === id;
+            let team = teams.filter(team => {
+                return team.id === id;
             })[0];
             
             // add rank
@@ -49,11 +63,35 @@ module.exports = {
     getStandings: function(data, callback) {
         const type = data.type;
         // get all teams and sort
-        client.getTeamsAtWeek({ seasonId: 2020, scoringPeriodId: 1})
+        client.getTeamsAtWeek({ seasonId: 2020, scoringPeriodId: 18})
         .then(teams => {
             teamSort(type, teams);
 
-            callback({ teams: teams, type: type });
+            callback(teams);
+        });
+    },
+
+    // function to get boxscores or single boxscore
+    getBoxscores: function(data, callback) {
+        // start with week 18 (post-season), could be a parameter in the future
+        if (!data.week) {
+            data.week = 18;
+        };
+        client.getBoxscoreForWeek({ seasonId: 2020, scoringPeriodId: data.week, matchupPeriodId: data.week})
+        .then(boxes => {
+            // iterate back through weeks until populated to get current week
+            if (!boxes.length) {
+                data.week -= 1;
+                this.getBoxscores(data, callback)
+                return;
+            };
+
+            // filter boxScores if needed
+            if (data.id) {
+                boxes = singleBox(data.id, boxes);
+            };
+
+            callback(boxes);
         });
     }
 
