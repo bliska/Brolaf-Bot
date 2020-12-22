@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "espn-fantasy-football-api": "^0.16.1",
+    "node-fetch": "^2.6.1"
   }
 }

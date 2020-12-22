@@ -4,11 +4,8 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'help',
     description: 'List all of my commands or info about a specific command.',
-    usage: '[command name]',
+    usage: '<command name>',
     execute(message, args) {
-
-        // setup empty array of return information
-        const data = [];
 
         // object of commands
         const { commands } = message.client;
