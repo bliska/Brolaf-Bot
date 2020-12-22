@@ -25,7 +25,10 @@ module.exports = {
             teamId: teamId,
             owner: utils.ownerFromEspn(teamId)
         };
-        fantasy.getTeamInfo(data, team => {
+        fantasy.getTeamsInfo(data, teams => {
+
+            const team = fantasy.getTeam(data.teamId, teams);
+
             const rank = utils.ordinal(team.rank);
             const pf = +team.regularSeasonPointsFor.toFixed(2);
             const pa = +team.regularSeasonPointsAgainst.toFixed(2)
@@ -37,12 +40,11 @@ module.exports = {
                 .setTitle(`${team.name}`)
                 .setURL(`https://fantasy.espn.com/football/team?leagueId=194518&seasonId=2020&teamId=${team.id}`)
                 .setThumbnail(team.logoURL)
-                .setDescription(team.owner)
+                .setDescription(data.owner)
                 .addField(`${team.wins}-${team.losses}-${team.ties} (${rank})`,
                     `PF: ${pf} (${pfRank})\nPA: ${pa} (${paRank})`)
         
             message.channel.send(embed);
         })
-        
     },
 };

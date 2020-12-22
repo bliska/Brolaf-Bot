@@ -41,22 +41,19 @@ module.exports = {
     },
 
     // function to get information on one team
-    getTeamInfo: function(data, callback) {
-        const id = data.teamId;
-        // get all teams (teams is array)
-        this.getTeamsInfo({}, teams =>{ 
-            // find the team we want
-            let team = teams.filter(team => {
-                return team.id === id;
-            })[0];
-            
-            // add rank
-            team.rank = getOrder('rank', teams, id);
-            team.pfRank = getOrder('pf', teams, id);
-            team.paRank = getOrder('pa', teams, id);
-            team.owner = data.owner;
-            callback(team);
-        });
+    getTeam: function(id, teams) {
+
+        // find the team we want
+        let team = teams.filter(team => {
+            return team.id === id;
+        })[0];
+        
+        // add ranks
+        team.rank = getOrder('rank', teams, id);
+        team.pfRank = getOrder('pf', teams, id);
+        team.paRank = getOrder('pa', teams, id);
+
+        return team;
     },
 
     // function to get standings
