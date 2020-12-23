@@ -40,8 +40,8 @@ module.exports = {
 
     // compare function (used to rank teams)
     compareRank: function(a,b) {
-        if(a.wins < b.wins) return 1;
-        else if(a.wins > b.wins) return -1;
+        if(a.wins + a.ties * .5 < b.wins + b.ties * .5) return 1;
+        else if(a.wins + a.ties * .5 > b.wins + b.ties * .5) return -1;
         else if(a.totalPointsScored < b.totalPointsScored) return 1;
         else if(a.totalPointsScored > b.totalPointsScored) return -1;
         else return 0;
